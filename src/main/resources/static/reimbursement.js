@@ -27,8 +27,12 @@ function populateReimbursementsTable(data){
 
     for(let cell in reimbursement){
       let td = document.createElement("td");
-      td.innerText=reimbursement[cell];
-      row.appendChild(td);
+      td.setAttribute("class", "col-sm-1");
+      if(cell != "id")
+      {
+        td.innerText=reimbursement[cell];
+        row.appendChild(td);
+      }
     }
     tbody.appendChild(row);
   }
@@ -40,7 +44,7 @@ function getNewReimbursement(){
 
   let reimbursement =  {
     amount:newAmount,
-    description:"",
+    description:"this is a test description",
     status:"Pending",
     type:"Other"
   }
