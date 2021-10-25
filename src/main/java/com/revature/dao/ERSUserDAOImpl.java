@@ -2,16 +2,14 @@ package com.revature.dao;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.ERSUser;
+import com.revature.utils.CollectionUtil;
 import com.revature.utils.HibernateUtil;
 
 public class ERSUserDAOImpl implements ERSUserDAO
@@ -20,14 +18,7 @@ public class ERSUserDAOImpl implements ERSUserDAO
 	@Override
 	public List<ERSUser> getAllUsers() {
 		Session session = HibernateUtil.getSession();
-		List<ERSUser> users;
-		CriteriaBuilder critBuilder = session.getCriteriaBuilder();
-		CriteriaQuery<ERSUser> query = critBuilder.createQuery(ERSUser.class);
-		Root<ERSUser> root = query.from(ERSUser.class);
-		CriteriaQuery<ERSUser> allUsers = query.select(root);
-		TypedQuery<ERSUser> typed = session.createQuery(allUsers);
-		
-		users = typed.getResultList();
+		List<ERSUser> users = CollectionUtil.castList(ERSUser.class, session.createQuery("FROM ERSUser").list());
 		return users;
 	}
 
@@ -80,6 +71,14 @@ public class ERSUserDAOImpl implements ERSUserDAO
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public ERSUser getUserByName(String username) {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM ERSUser WHERE username = :user_name");
+		query.setParameter("user_name", username);
+		return (ERSUser) query.getSingleResult();
 	}
 
 	

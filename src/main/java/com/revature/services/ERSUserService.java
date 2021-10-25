@@ -21,6 +21,13 @@ public class ERSUserService
 		return user;
 	}
 	
+	public ERSUser getUser(String username)
+	{
+		ERSUser user = userDAO.getUserByName(username);
+		return user;
+	}
+	
+	
 	public boolean addUser(ERSUser user)
 	{
 		return userDAO.insert(user);

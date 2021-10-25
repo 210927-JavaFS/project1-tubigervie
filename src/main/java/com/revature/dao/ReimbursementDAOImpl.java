@@ -7,16 +7,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.Reimbursement;
+import com.revature.utils.CollectionUtil;
 import com.revature.utils.HibernateUtil;
 
 public class ReimbursementDAOImpl implements ReimbursementDAO
 {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reimbursement> getAllReimbursements() {
 		Session session = HibernateUtil.getSession();
-		return session.createQuery("FROM Reimbursement").list();
+		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, session.createQuery("FROM Reimbursement").list());
+		return reimbursements;
 	}
 
 	@Override

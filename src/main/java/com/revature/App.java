@@ -1,6 +1,7 @@
 package com.revature;
 
 import com.revature.controllers.Controller;
+import com.revature.controllers.ERSUserController;
 import com.revature.controllers.ReimbursementController;
 
 import io.javalin.Javalin;
@@ -16,7 +17,7 @@ public class App
 			config.addStaticFiles("/static", Location.CLASSPATH);
 		});
 		
-		configure(new ReimbursementController());
+		configure(new ReimbursementController(), new ERSUserController());
 		
 		app.start(8081);
 
