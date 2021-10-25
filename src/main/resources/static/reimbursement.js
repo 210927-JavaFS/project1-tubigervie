@@ -4,11 +4,24 @@ let addReimbursementButton = document.getElementById('addReimbursementButton');
 let viewReimbursementsButton = document.getElementById('viewReimbursementsButton');
 
 addReimbursementButton.onclick = addReimbursement;
-viewReimbursementsButton.onclick = getReimbursements;
+viewReimbursementsButton.onclick = getReimbursementsFromUser;
 
 async function getReimbursements()
 {
   let response = await fetch(URL+"reimbursements");
+  if(response.status === 200){
+    let data = await response.json();
+    populateReimbursementsTable(data);
+  }else{
+    console.log("Cannot get reimbursements.");
+  }
+}
+
+async function getReimbursementsFromUser()
+{
+  let user = sessionStorage.getItem("currentlogin");
+  console.log("fetching reimbursements for: " + user);
+  let response = await fetch(URL+"reimbursements/"+user);
   if(response.status === 200){
     let data = await response.json();
     populateReimbursementsTable(data);

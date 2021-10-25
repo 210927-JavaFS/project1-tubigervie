@@ -2,6 +2,8 @@ package com.revature.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,6 +19,15 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 	public List<Reimbursement> getAllReimbursements() {
 		Session session = HibernateUtil.getSession();
 		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, session.createQuery("FROM Reimbursement").list());
+		return reimbursements;
+	}
+	
+	@Override
+	public List<Reimbursement> getAllReimbursementsFromUserID(int id) {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM Reimbursement WHERE author_id = :author");
+		query.setParameter("author", id);
+		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
 		return reimbursements;
 	}
 

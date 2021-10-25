@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.revature.models.ERSUser.UserRole;
 
@@ -45,6 +46,7 @@ public class Reimbursement
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="author_id")
+	@JsonBackReference
 	private ERSUser author;
 	
 	@ManyToOne

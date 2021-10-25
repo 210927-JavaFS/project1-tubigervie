@@ -14,6 +14,11 @@ public class ReimbursementService {
 		return reimburseDAO.getAllReimbursements();
 	}
 	
+	public List<Reimbursement> getAllReimbursementsFromUser(int userID)
+	{
+		return reimburseDAO.getAllReimbursementsFromUserID(userID);
+	}
+	
 	public Reimbursement getReimbursement(int id)
 	{
 		Reimbursement reimbursement = reimburseDAO.getReimbursementByID(id);

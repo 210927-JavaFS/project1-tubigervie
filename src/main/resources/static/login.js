@@ -29,8 +29,9 @@ async function login()
 
     if(response.status === 200)
     {
+        sessionStorage.setItem("currentlogin", name);
         console.log("Login successful.");
-        window.open("reimbursement.html?"+user.username);
+        window.location.href = "reimbursement.html?"+name;
     }
     else
     {

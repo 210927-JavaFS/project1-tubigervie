@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="ers_users")
@@ -44,6 +45,7 @@ public class ERSUser
 	private UserRole role;
 	
 	@OneToMany(mappedBy="author", fetch=FetchType.EAGER)
+	@JsonManagedReference
 	private List<Reimbursement> reimbursements;
 	
 	public ERSUser(String username, String password, String firstName, String lastName, String email, UserRole role, List<Reimbursement> reimbursements)
