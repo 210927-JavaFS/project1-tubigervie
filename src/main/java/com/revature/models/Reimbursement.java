@@ -13,11 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.revature.models.ERSUser.UserRole;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Entity
 @Table(name="reimbursements")
@@ -35,6 +33,7 @@ public class Reimbursement
 	private float amount;
 	
 	@Column(name="submitted_on")
+	@JsonProperty("submitTime")
 	private String submittedOn;
 	
 	@Column(name="resolved_on")
@@ -49,10 +48,6 @@ public class Reimbursement
 	@JsonBackReference
 	private ERSUser author;
 	
-	@ManyToOne
-	@JoinColumn(name="resolver_id")
-	private ERSUser resolver;
-	
 	@Enumerated(EnumType.STRING)
 	@Column(name="reimburse_status", nullable=false)
 	private ReimburseStatus status;
@@ -60,14 +55,21 @@ public class Reimbursement
 	@Enumerated(EnumType.STRING)
 	@Column(name="reimburse_type", nullable=false)
 	private ReimburseType type;
+	
+	@ManyToOne
+	@JoinColumn(name="resolver_id")
+	private ERSUser resolver;
 		
-	public Reimbursement(String amount, String description, String status, String type)
+	public Reimbursement(ERSUser author, String amount, String description, String status, String type, ERSUser resolver, String submit, String resolve)
 	{
 		super();
 		this.amount = Float.valueOf(amount);
-		this.submittedOn = LocalDateTime.now().toString();
+		this.submittedOn = submit;
+		System.out.println("Submitted on: " + this.submittedOn);
 		this.description =  description;
-		this.author = new ERSUser("Ervie","test","Ervs","Tubby","yes.email", UserRole.EMPLOYEE, new ArrayList<Reimbursement>());
+		this.author = author;
+		this.resolver = resolver;
+		this.resolvedOn = resolve;
 		this.status = ReimburseStatus.valueOf(status);
 		this.type = ReimburseType.valueOf(type);
 		this.author.addReimbursement(this);
@@ -103,9 +105,9 @@ public class Reimbursement
 		return resolvedOn;
 	}
 	
-	public void setResolveTime(LocalDateTime dateTime)
+	public void setResolveTime(String string)
 	{
-		this.resolvedOn = dateTime.toString();
+		this.resolvedOn = string;
 	}
 	
 	public ERSUser getAuthor()

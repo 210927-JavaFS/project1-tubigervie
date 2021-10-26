@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="ers_users")
@@ -42,13 +43,14 @@ public class ERSUser
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="user_role", nullable=false)
+	@JsonProperty("userRole")
 	private UserRole role;
 	
 	@OneToMany(mappedBy="author", fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private List<Reimbursement> reimbursements;
 	
-	public ERSUser(String username, String password, String firstName, String lastName, String email, UserRole role, List<Reimbursement> reimbursements)
+	public ERSUser(String username, String password, String firstName, String lastName, String email, UserRole userRole, List<Reimbursement> reimbursements)
 	{
 		super();
 		this.username = username;
@@ -56,7 +58,7 @@ public class ERSUser
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.role = role;
+		this.role = userRole;
 		this.reimbursements = reimbursements;
 	}
 	

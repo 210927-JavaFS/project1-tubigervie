@@ -29,9 +29,11 @@ async function login()
 
     if(response.status === 200)
     {
-        sessionStorage.setItem("currentlogin", name);
+        let data = await response.json();
+        sessionStorage.setItem("currentLoginName", data.username);
+        sessionStorage.setItem("currentLoginID", data.id);
         console.log("Login successful.");
-        window.location.href = "reimbursement.html?"+name;
+        window.location.href = "employeemenu.html?"+name;
     }
     else
     {

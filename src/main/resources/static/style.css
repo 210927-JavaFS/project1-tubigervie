@@ -1,0 +1,109 @@
+
+/* set entire body that is webpage */
+.login-body{
+	background: #383a3d;
+}
+/* set form background colour*/
+form{
+	background: #fff;
+	margin: 20px auto;
+    width: 420px;
+}
+/* set padding and size of th form */
+.form-container{
+	border-radius: 10px;
+	padding: 30px;
+}
+
+.input-group .form-control {
+    float: none;
+}
+
+.request-form
+{
+	padding: 40px;
+	border-radius: 10px;
+}
+
+.flex {
+	display: flex;
+	justify-content: flex-start;
+}
+.flex input {
+	max-width: 300px;
+	flex: 1 1 300px;
+}
+
+.flex .currency {
+	font-size: 25px;
+	padding: 0 10px 0 10px;
+	color: #999;
+	border: 1px solid #ccc;
+	border-right: 0;
+	line-height: 1;
+	border-radius: 5px 0 0 5px;
+	background: white;
+}
+
+.table{
+	background: #fff;
+}
+
+.container-fluid
+{
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 25vh;
+}
+
+/* Navigation Bar Selectors */
+
+.menu-body{
+	background: #383a3d;
+}
+
+header {
+	background: hsl(0, 0%, 100%);
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+header::after{
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.logo {
+	float: left;
+	padding: 10px 0;
+}
+
+nav {
+	float: right;
+}
+
+nav ul
+{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+
+nav li 
+{
+	display: inline-block;
+	margin-left: 70px;
+	padding-top: 25px;
+}
+
+nav a {
+	color: #444;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size:18px;
+}
+
+nav a:hover{
+	color:black;
+}

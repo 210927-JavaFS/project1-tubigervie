@@ -42,7 +42,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 		try {
 			Session session = HibernateUtil.getSession();
 			Transaction tx = session.beginTransaction();
-			session.save(reimbursement);
+			session.merge(reimbursement);
 			tx.commit();
 			HibernateUtil.closeSession();
 			return true;
