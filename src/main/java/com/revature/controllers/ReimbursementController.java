@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.util.List;
 
 import com.revature.models.ERSUser;
+import com.revature.models.ERSUser.UserRole;
 import com.revature.models.Reimbursement;
 import com.revature.services.ERSUserService;
 import com.revature.services.ReimbursementService;
@@ -18,6 +19,13 @@ public class ReimbursementController implements Controller
 	public Handler getAllReimbursements = (ctx) -> {
 		if(ctx.req.getSession(false) != null)
 		{
+			int userID = ctx.sessionAttribute("userid");
+			ERSUser user = userService.getUser(userID);
+			if(user.getUserRole() != UserRole.MANAGER) 
+			{
+				ctx.status(401);
+				return;
+			}
 			List<Reimbursement> list = reimbursementService.getAllReimbursements();
 			ctx.json(list);
 			ctx.status(200);
@@ -31,9 +39,22 @@ public class ReimbursementController implements Controller
 		if(ctx.req.getSession(false) != null)
 		{
 			try {
-				String idString = ctx.pathParam("reimbursements");
+				String idString = ctx.pathParam("reimbursement");
 				int id = Integer.parseInt(idString);
 				Reimbursement reimbursement = reimbursementService.getReimbursement(id);
+				if(reimbursement == null)
+				{
+					ctx.status(404);
+					return;
+				}
+				int userID = ctx.sessionAttribute("userid");
+				ERSUser user = userService.getUser(userID);
+				if(user.getUserRole() == UserRole.EMPLOYEE && userID != reimbursement.getAuthor().getID()) 
+				{
+					ctx.status(401);
+					return;
+				}
+				
 				ctx.json(reimbursement);
 				ctx.status(200);
 			}catch(NumberFormatException e)
@@ -46,12 +67,20 @@ public class ReimbursementController implements Controller
 		}
 	};
 	
-	public Handler getReimbursementsById = (ctx) -> {
+	public Handler getReimbursementsByUsername = (ctx) -> {
 		if(ctx.req.getSession(false) != null)
 		{
-			String username = ctx.pathParam("username");
-			ERSUser user = userService.getUser(username);
-			List<Reimbursement> list = reimbursementService.getAllReimbursementsFromUser(user.getID());
+			String queryUsername = ctx.pathParam("username");
+			int sessionUserID = ctx.sessionAttribute("userid");
+			ERSUser sessionUser = userService.getUser(sessionUserID);
+			if(sessionUser.getUserRole() == UserRole.EMPLOYEE && !sessionUser.getUsername().equals(queryUsername)) 
+			{
+				ctx.status(401);
+				return;
+			}
+			
+			ERSUser queryUser = userService.getUser(queryUsername);
+			List<Reimbursement> list = reimbursementService.getAllReimbursementsFromUser(queryUser.getID());
 			ctx.json(list);
 			ctx.status(200);
 		} else {
@@ -113,7 +142,8 @@ public class ReimbursementController implements Controller
 		app.post("/reimbursements", this.addReimbursement);
 		app.put("/reimbursements", this.updateReimbursement);
 		app.delete("/reimbursements/:reimbursement", this.deleteReimbursement);
-		app.get("/reimbursements/:username", this.getReimbursementsById);
+		app.get("/reimbursements/:username", this.getReimbursementsByUsername);
+		app.get("/reimbursements/:username/:reimbursement", this.getReimbursement);
 	}
 
 }

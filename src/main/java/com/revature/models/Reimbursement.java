@@ -12,10 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name="reimbursements")
@@ -43,9 +40,8 @@ public class Reimbursement
 	
 	//private byte[] receiptImage; stretch parameter
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="author_id")
-	@JsonBackReference
 	private ERSUser author;
 	
 	@Enumerated(EnumType.STRING)
@@ -56,7 +52,7 @@ public class Reimbursement
 	@Column(name="reimburse_type", nullable=false)
 	private ReimburseType type;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="resolver_id")
 	private ERSUser resolver;
 		
@@ -72,7 +68,6 @@ public class Reimbursement
 		this.resolvedOn = resolve;
 		this.status = ReimburseStatus.valueOf(status);
 		this.type = ReimburseType.valueOf(type);
-		this.author.addReimbursement(this);
 	}
 	
 	public Reimbursement()

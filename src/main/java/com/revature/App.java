@@ -17,6 +17,7 @@ public class App
 			config.addStaticFiles("/static", Location.CLASSPATH);
 		});
 		
+		app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
 		configure(new ReimbursementController(), new ERSUserController());
 		
 		app.start(8081);

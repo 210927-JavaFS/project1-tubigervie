@@ -34,6 +34,10 @@ form{
 	flex: 1 1 300px;
 }
 
+.btn-group button {
+	margin: 20px auto;
+}
+
 .flex .currency {
 	font-size: 25px;
 	padding: 0 10px 0 10px;

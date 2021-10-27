@@ -1,18 +1,13 @@
 package com.revature.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -46,11 +41,7 @@ public class ERSUser
 	@JsonProperty("userRole")
 	private UserRole role;
 	
-	@OneToMany(mappedBy="author", fetch=FetchType.EAGER)
-	@JsonManagedReference
-	private List<Reimbursement> reimbursements;
-	
-	public ERSUser(String username, String password, String firstName, String lastName, String email, UserRole userRole, List<Reimbursement> reimbursements)
+	public ERSUser(String username, String password, String firstName, String lastName, String email, UserRole userRole)
 	{
 		super();
 		this.username = username;
@@ -59,7 +50,6 @@ public class ERSUser
 		this.lastName = lastName;
 		this.email = email;
 		this.role = userRole;
-		this.reimbursements = reimbursements;
 	}
 	
 	public ERSUser()
@@ -107,21 +97,6 @@ public class ERSUser
 		return role;
 	}
 	
-	public List<Reimbursement> getReimbursements()
-	{
-		return reimbursements;
-	}
-	
-	public void addReimbursement(Reimbursement reimbursment)
-	{
-		reimbursements.add(reimbursment);
-	}
-	
-	public void removeReimbursement(Reimbursement reimbursment)
-	{
-		reimbursements.remove(reimbursment);
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,7 +106,6 @@ public class ERSUser
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((reimbursements == null) ? 0 : reimbursements.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -162,11 +136,6 @@ public class ERSUser
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (reimbursements == null) {
-			if (other.reimbursements != null)
-				return false;
-		} else if (!reimbursements.equals(other.reimbursements))
 			return false;
 		if (role != other.role)
 			return false;

@@ -9,7 +9,7 @@ async function getReimbursements()
   let response = await fetch(URL+"reimbursements");
   if(response.status === 200){
     let data = await response.json();
-    populateReimbursementsTable(data);
+    populateReimbursementsTable(data, true);
   }else{
     console.log("Cannot get reimbursements.");
   }
@@ -18,25 +18,41 @@ async function getReimbursements()
 async function getReimbursementsFromUser()
 {
   let user = sessionStorage.getItem("currentLoginName");
-  let userID = sessionStorage.getItem("currentLoginID");
-  console.log("fetching reimbursements for: " + user + " (" + userID + ")");
   let response = await fetch(URL+"reimbursements/"+user);
   if(response.status === 200){
     let data = await response.json();
-    populateReimbursementsTable(data);
+    populateReimbursementsTable(data, false);
   }else{
     console.log("Cannot get reimbursements.");
   }
 }
 
-function populateReimbursementsTable(data){
+function populateReimbursementsTable(data, displayAuthor){
   let tbody = document.getElementById("reimbursementBody");
 
   tbody.innerHTML="";
 
+  let entryCount = Object.keys(data).length;
+
+  if(entryCount == 0)
+  {
+    let row = document.createElement("tr");
+    let td = document.createElement("td");
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    row.appendChild(td);
+    tbody.appendChild(row);
+    return;
+  }
+
   for(let reimbursement of data){
     let row = document.createElement("tr");
-
+    row.setAttribute("class", "clickable-row");
     let tdID = document.createElement("td");
     tdID.setAttribute("class", "col-sm-1");
     tdID.innerText = reimbursement["id"];
@@ -68,6 +84,14 @@ function populateReimbursementsTable(data){
     if(!tdSubmit.innerText) tdSubmit.innerText = "N/A";
     row.appendChild(tdSubmit);
 
+    if(displayAuthor)
+    {
+      let tdAuthor = document.createElement("td");
+      tdAuthor.setAttribute("class", "col-sm-1");
+      tdAuthor.innerText = reimbursement["author"].username;
+      row.appendChild(tdAuthor);
+    }
+
     let tdResolveTime = document.createElement("td");
     tdResolveTime.setAttribute("class", "col-sm-1");
     tdResolveTime.innerText = reimbursement["resolveTime"];
@@ -76,14 +100,20 @@ function populateReimbursementsTable(data){
 
     let tdResolver = document.createElement("td");
     tdResolver.setAttribute("class", "col-sm-1");
-    tdResolver.innerText = reimbursement["resolver"];
-    if(!tdResolver.innerText) tdResolver.innerText = "N/A";
+    if(!reimbursement["resolver"]) tdResolver.innerText = "N/A";
+    else tdResolver.innerText = reimbursement["resolver"].username;
     row.appendChild(tdResolver);
-
     tbody.appendChild(row);
   }
+  if(displayAuthor)
+  {
+    $('.clickable-row').click(function () {
+      let id = $(this).find('td:first').text();
+      sessionStorage.setItem("currentReimbursementID", parseInt(id));
+      window.location.href = "reimbursement.html?"+id;
+    });
+  }
 }
-
 
 function getNewReimbursement(){
   let newAmount = document.getElementById("reimbursementAmount").value;

@@ -5,6 +5,8 @@ const errorMessage = document.getElementById("error-message");
 
 loginButton.addEventListener("click", login);
 
+sessionStorage.clear();
+
 async function login()
 {
     let name = document.getElementById("InputUsername").value;
@@ -33,7 +35,10 @@ async function login()
         sessionStorage.setItem("currentLoginName", data.username);
         sessionStorage.setItem("currentLoginID", data.id);
         console.log("Login successful.");
-        window.location.href = "employeemenu.html?"+name;
+        if(data["userRole"] == "MANAGER")
+            window.location.href = "managermenu.html?"+name;
+        else
+            window.location.href = "employeemenu.html?"+name;
     }
     else
     {
