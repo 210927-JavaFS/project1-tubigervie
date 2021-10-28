@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.Reimbursement.ReimburseStatus;
 import com.revature.utils.CollectionUtil;
 import com.revature.utils.HibernateUtil;
 
@@ -80,6 +81,24 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementsByStatus(ReimburseStatus status) {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM Reimbursement WHERE status = :status");
+		query.setParameter("status", status);
+		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+		return reimbursements;
+	}
+
+	@Override
+	public List<Reimbursement> getAllPastReimbursements() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM Reimbursement WHERE status != :status");
+		query.setParameter("status", ReimburseStatus.Pending);
+		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+		return reimbursements;
 	}
 
 }

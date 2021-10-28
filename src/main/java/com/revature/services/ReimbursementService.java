@@ -5,6 +5,7 @@ import java.util.List;
 import com.revature.dao.ReimbursementDAO;
 import com.revature.dao.ReimbursementDAOImpl;
 import com.revature.models.Reimbursement;
+import com.revature.models.Reimbursement.ReimburseStatus;
 
 public class ReimbursementService {
 	private ReimbursementDAO reimburseDAO = new ReimbursementDAOImpl();
@@ -12,6 +13,16 @@ public class ReimbursementService {
 	public List<Reimbursement> getAllReimbursements()
 	{
 		return reimburseDAO.getAllReimbursements();
+	}
+	
+	public List<Reimbursement> getAllPastReimbursements()
+	{
+		return reimburseDAO.getAllPastReimbursements();
+	}
+	
+	public List<Reimbursement> getReimbursementsByStatus(ReimburseStatus status)
+	{
+		return reimburseDAO.getReimbursementsByStatus(status);
 	}
 	
 	public List<Reimbursement> getAllReimbursementsFromUser(int userID)

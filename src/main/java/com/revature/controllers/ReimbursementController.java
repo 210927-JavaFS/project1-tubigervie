@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.models.ERSUser;
 import com.revature.models.ERSUser.UserRole;
+import com.revature.models.Reimbursement.ReimburseStatus;
 import com.revature.models.Reimbursement;
 import com.revature.services.ERSUserService;
 import com.revature.services.ReimbursementService;
@@ -39,6 +40,7 @@ public class ReimbursementController implements Controller
 		if(ctx.req.getSession(false) != null)
 		{
 			try {
+				System.out.println("is this being called?");
 				String idString = ctx.pathParam("reimbursement");
 				int id = Integer.parseInt(idString);
 				Reimbursement reimbursement = reimbursementService.getReimbursement(id);
@@ -81,6 +83,34 @@ public class ReimbursementController implements Controller
 			
 			ERSUser queryUser = userService.getUser(queryUsername);
 			List<Reimbursement> list = reimbursementService.getAllReimbursementsFromUser(queryUser.getID());
+			ctx.json(list);
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
+	};
+	
+	public Handler getReimbursementsByStatus = (ctx) -> {
+		if(ctx.req.getSession(false) != null)
+		{
+			int sessionUserID = ctx.sessionAttribute("userid");
+			ERSUser sessionUser = userService.getUser(sessionUserID);
+			if(sessionUser.getUserRole() == UserRole.EMPLOYEE) 
+			{
+				ctx.status(401);
+				return;
+			}
+			String statusString = ctx.pathParam("status");
+			List<Reimbursement> list = null;
+			if(statusString.equals("past"))
+			{
+				list = reimbursementService.getAllPastReimbursements();
+			}
+			else 
+			{
+				ReimburseStatus status = ReimburseStatus.valueOf(statusString);
+				list = reimbursementService.getReimbursementsByStatus(status);
+			}
 			ctx.json(list);
 			ctx.status(200);
 		} else {
@@ -141,6 +171,7 @@ public class ReimbursementController implements Controller
 		app.get("/reimbursements", this.getAllReimbursements);
 		app.post("/reimbursements", this.addReimbursement);
 		app.put("/reimbursements", this.updateReimbursement);
+		app.get("/reimbursements/statuses/:status", this.getReimbursementsByStatus);
 		app.delete("/reimbursements/:reimbursement", this.deleteReimbursement);
 		app.get("/reimbursements/:username", this.getReimbursementsByUsername);
 		app.get("/reimbursements/:username/:reimbursement", this.getReimbursement);

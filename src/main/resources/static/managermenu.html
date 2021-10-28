@@ -9,15 +9,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-<body class="menu-body" onLoad="getReimbursements()">
+<body class="menu-body" onLoad="getPendingReimbursements()">
 
 <header>
     <div class="container">   
         <img src="revature-logo.png">
         <nav>
             <ul>
-                <li><a href="managermenu.html">View requests</a></li>
-                <li><a href="login.html">Logout</a></li>
+              <li><a href="managermenu.html">Current requests</a></li>
+              <li><a href="managerpastrequests.html">Past requests</a></li>
+              <li><a href="login.html">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -25,10 +26,11 @@
 
 <section class="container-fluid">
     <!-- row and justify-content-center class is used to place the form in center -->
+    <p style="font-size:20px; display:inline-block; color:white; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" id = "pendingCount"><b>0 pending request(s).</b></p>
     <section class="row justify-content-center">
       <section class="col-xl-12">
         <div class="table-responsive">
-            <table class="table table-striped" id="managerTable">
+            <table class="table table-striped table-bordered" id="managerTable">
                 <thead>
                   <tr>
                     <th class="col-1" id="reimburse-id">ID</th>
