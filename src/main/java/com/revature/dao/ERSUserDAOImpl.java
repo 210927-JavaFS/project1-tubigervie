@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
@@ -24,8 +25,18 @@ public class ERSUserDAOImpl implements ERSUserDAO
 
 	@Override
 	public ERSUser getUserByID(int id) {
-		Session session = HibernateUtil.getSession();
-		return session.get(ERSUser.class, id);
+		try {
+			Session session = HibernateUtil.getSession();
+			return session.get(ERSUser.class, id);	
+		} catch(HibernateException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 	@Override
@@ -75,10 +86,20 @@ public class ERSUserDAOImpl implements ERSUserDAO
 
 	@Override
 	public ERSUser getUserByName(String username) {
-		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM ERSUser WHERE username = :user_name");
-		query.setParameter("user_name", username);
-		return (ERSUser) query.getSingleResult();
+		try {
+			Session session = HibernateUtil.getSession();
+			Query query = session.createQuery("FROM ERSUser WHERE username = :user_name");
+			query.setParameter("user_name", username);
+			return (ERSUser) query.getSingleResult();
+		}catch(HibernateException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 	

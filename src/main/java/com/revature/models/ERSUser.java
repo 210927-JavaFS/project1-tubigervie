@@ -18,7 +18,7 @@ public class ERSUser
 	
 	@Id
 	@Column(name="employee_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int id;
 	
 	@Column(unique=true, nullable=false)
@@ -95,6 +95,11 @@ public class ERSUser
 	public UserRole getUserRole()
 	{
 		return role;
+	}
+	
+	public void setUserRole(UserRole newRole)
+	{
+		this.role = newRole;
 	}
 	
 	@Override

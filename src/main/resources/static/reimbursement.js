@@ -186,31 +186,3 @@ function populateReimbursementsTable(data, displayAuthor, canClick){
     });
   }
 }
-
-function getNewReimbursement(){
-  let newAmount = document.getElementById("reimbursementAmount").value;
-
-  let reimbursement =  {
-    amount:newAmount,
-    description:"this is a test description",
-    status:"Pending",
-    type:"Other"
-  }
-
-  return reimbursement;
-}
-
-async function addReimbursement(){
-  let reimbursement = getNewReimbursement();
-
-  let response = await fetch(URL+"reimbursements", {
-    method:'POST',
-    body:JSON.stringify(reimbursement)
-  });
-
-  if(response.status===201){
-    console.log("Reimbursement request created successfully.");
-  }else{
-    console.log("Something went wrong creating your request.")
-  }
-}

@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
@@ -18,24 +19,41 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 
 	@Override
 	public List<Reimbursement> getAllReimbursements() {
-		Session session = HibernateUtil.getSession();
-		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, session.createQuery("FROM Reimbursement").list());
-		return reimbursements;
+		try {
+			Session session = HibernateUtil.getSession();
+			List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, session.createQuery("FROM Reimbursement").list());
+			return reimbursements;
+		}
+		catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Reimbursement> getAllReimbursementsFromUserID(int id) {
-		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Reimbursement WHERE author_id = :author");
-		query.setParameter("author", id);
-		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
-		return reimbursements;
+		try {
+			Session session = HibernateUtil.getSession();
+			Query query = session.createQuery("FROM Reimbursement WHERE author_id = :author");
+			query.setParameter("author", id);
+			List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+			return reimbursements;
+		}
+		catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 	@Override
 	public Reimbursement getReimbursementByID(int id) {
-		Session session = HibernateUtil.getSession();
-		return session.get(Reimbursement.class, id);
+		try {
+			Session session = HibernateUtil.getSession();
+			return session.get(Reimbursement.class, id);
+		}catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 	@Override
@@ -43,7 +61,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 		try {
 			Session session = HibernateUtil.getSession();
 			Transaction tx = session.beginTransaction();
-			session.merge(reimbursement);
+			session.save(reimbursement);
 			tx.commit();
 			HibernateUtil.closeSession();
 			return true;
@@ -85,20 +103,31 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 
 	@Override
 	public List<Reimbursement> getReimbursementsByStatus(ReimburseStatus status) {
-		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Reimbursement WHERE status = :status");
-		query.setParameter("status", status);
-		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
-		return reimbursements;
+		try {
+			Session session = HibernateUtil.getSession();
+			Query query = session.createQuery("FROM Reimbursement WHERE status = :status");
+			query.setParameter("status", status);
+			List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+			return reimbursements;
+		}catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 	@Override
 	public List<Reimbursement> getAllPastReimbursements() {
-		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Reimbursement WHERE status != :status");
-		query.setParameter("status", ReimburseStatus.Pending);
-		List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
-		return reimbursements;
+		try {
+			Session session = HibernateUtil.getSession();
+			Query query = session.createQuery("FROM Reimbursement WHERE status != :status");
+			query.setParameter("status", ReimburseStatus.Pending);
+			List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+			return reimbursements;
+		}
+		catch(NoResultException e)
+		{
+			return null;
+		}
 	}
 
 }

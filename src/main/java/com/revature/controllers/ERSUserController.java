@@ -24,7 +24,7 @@ public class ERSUserController implements Controller
 			ctx.req.getSession();
 			ctx.sessionAttribute("userid", user.getID());
 			ctx.json(user);
-			ctx.status(200);
+			ctx.status(200);                                                                  
 		}
 		else
 		{

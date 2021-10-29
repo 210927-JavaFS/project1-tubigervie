@@ -23,7 +23,7 @@ public class Reimbursement
 	
 	@Id
 	@Column(name="reimburse_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int id;
 	
 	@Column(name="reimburse_amount", nullable=false)
@@ -40,7 +40,7 @@ public class Reimbursement
 	
 	//private byte[] receiptImage; stretch parameter
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	@JoinColumn(name="author_id")
 	private ERSUser author;
 	
@@ -61,7 +61,6 @@ public class Reimbursement
 		super();
 		this.amount = Float.valueOf(amount);
 		this.submittedOn = submit;
-		System.out.println("Submitted on: " + this.submittedOn);
 		this.description =  description;
 		this.author = author;
 		this.resolver = resolver;
@@ -115,9 +114,9 @@ public class Reimbursement
 		return resolver;
 	}
 	
-	public void setResolver(ERSUser id)
+	public void setResolver(ERSUser user)
 	{
-		this.resolver = id;
+		this.resolver = user;
 	}
 	
 	public String getDescription()

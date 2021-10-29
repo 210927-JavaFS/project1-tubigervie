@@ -72,9 +72,8 @@ async function addReimbursement(){
 
   if(response.status===201){
     console.log("Reimbursement request created successfully.");
+    window.location.href = "employeemenu.html?" + sessionStorage.getItem("currentLoginName");
   }else{
     console.log("Something went wrong creating your request.")
   }
-
-  window.location.href = "employeemenu.html?" + sessionStorage.getItem("currentLoginName");
 }

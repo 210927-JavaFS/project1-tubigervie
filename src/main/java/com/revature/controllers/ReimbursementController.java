@@ -40,7 +40,6 @@ public class ReimbursementController implements Controller
 		if(ctx.req.getSession(false) != null)
 		{
 			try {
-				System.out.println("is this being called?");
 				String idString = ctx.pathParam("reimbursement");
 				int id = Integer.parseInt(idString);
 				Reimbursement reimbursement = reimbursementService.getReimbursement(id);
