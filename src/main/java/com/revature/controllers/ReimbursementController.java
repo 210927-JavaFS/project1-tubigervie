@@ -127,6 +127,7 @@ public class ReimbursementController implements Controller
 			ctx.json(list);
 			ctx.status(200);
 		} else {
+			System.out.println("invalid session");
 			ctx.status(401);
 		}
 	};
