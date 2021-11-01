@@ -18,6 +18,7 @@ public class Driver
 		});
 		app.before(ctx->ctx.header("Access-Control-Allow-Origin", "http://ers-system.s3-website-us-west-1.amazonaws.com"));
 		app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
+		app.before(ctx -> ctx.header("Vary", "Origin"));
 		configure(new ReimbursementController(), new ERSUserController());
 		
 		app.start(8081);
