@@ -7,7 +7,7 @@ import com.revature.controllers.ReimbursementController;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 
-public class App 
+public class Driver 
 {
 	private static Javalin app;
 	

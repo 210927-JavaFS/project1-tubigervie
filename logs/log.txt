@@ -1370,3 +1370,19 @@ Caused by: org.postgresql.util.PSQLException: ERROR: operator does not exist: ch
 03:58:31.572 [] [qtp355518265-24] INFO  c.r.c.ReimbursementController - Successfully updated reimbursement (ID: 212)
 03:58:40.055 [] [qtp355518265-28] INFO  c.r.controllers.ERSUserController - Attempting to login for username: etubig.
 03:59:01.699 [] [qtp355518265-45] INFO  c.r.controllers.ERSUserController - Attempting to login for username: admin.
+04:23:36.372 [] [main] INFO  org.eclipse.jetty.util.log - Logging initialized @433ms to org.eclipse.jetty.util.log.Slf4jLog
+04:23:36.441 [] [main] INFO  io.javalin.Javalin - Static file handler added:
+    {urlPathPrefix: "/", path: "/static", location: Location.CLASSPATH}
+    Resolved path: 'file:///C:/Users/ervie/Documents/Work%20Stuff/sts-4.8.1.RELEASE/workspace/Repos/project1-tubigervie/target/classes/static/'
+04:23:36.501 [] [main] INFO  io.javalin.Javalin - 
+           __                      __ _
+          / /____ _ _   __ ____ _ / /(_)____
+     __  / // __ `/| | / // __ `// // // __ \
+    / /_/ // /_/ / | |/ // /_/ // // // / / /
+    \____/ \__,_/  |___/ \__,_//_//_//_/ /_/
+
+        https://javalin.io/documentation
+
+04:23:36.502 [] [main] INFO  io.javalin.Javalin - Starting Javalin ...
+04:23:36.692 [] [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+04:23:36.692 [] [main] INFO  io.javalin.Javalin - Javalin started in 191ms \o/
