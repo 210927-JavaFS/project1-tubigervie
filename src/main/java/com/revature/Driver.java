@@ -16,7 +16,7 @@ public class Driver
 		app = Javalin.create((config)->{
 			config.addStaticFiles("/static", Location.CLASSPATH);
 		});
-		app.before(ctx->ctx.header("Access-Control-Allow-Origin", "*"));
+		app.before(ctx->ctx.header("Access-Control-Allow-Origin", "http://ers-system.s3-website-us-west-1.amazonaws.com"));
 		app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
 		configure(new ReimbursementController(), new ERSUserController());
 		
