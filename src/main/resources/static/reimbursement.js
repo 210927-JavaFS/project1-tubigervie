@@ -6,7 +6,12 @@ const URL = "http://54.193.215.129:8081/";
 
 async function getReimbursementsByFilterString(filter)
 {
-  let response = await fetch(URL+"reimbursements" + filter);
+  let response = await fetch(URL+"reimbursements" + filter,
+  {
+      method: "GET",
+      credentials: "include"
+  });
+
   if(response.status === 200){
     let data = await response.json();
     return data;

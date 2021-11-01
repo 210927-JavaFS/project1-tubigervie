@@ -1,8 +1,5 @@
 package com.revature.controllers;
 
-
-import javax.servlet.http.Cookie;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,19 +25,7 @@ public class ERSUserController implements Controller
 		if(loginService.login(userDTO))
 		{
 			ERSUser user = userService.getUser(userDTO.username);
-			System.out.println("should validate session");
 			ctx.req.getSession();
-			if(ctx.req.getParameter("JSESSIONID") != null)
-			{
-				Cookie userCookie = new Cookie("JSESSIONID", ctx.req.getParameter("JSESSIONID"));
-				ctx.res.addCookie(userCookie);
-			}
-			else
-			{
-				String sessionId = ctx.req.getSession().getId();
-			    Cookie userCookie = new Cookie("JSESSIONID", sessionId);
-			    ctx.res.addCookie(userCookie);
-			}
 			ctx.sessionAttribute("userid", user.getID());
 			ctx.json(user);
 			ctx.status(200);                                                                  
