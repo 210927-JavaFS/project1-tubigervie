@@ -1,4 +1,4 @@
-const URL = "http://localhost:8081/";
+const URL = "http://54.193.215.129:8081/";
 
 const loginButton = document.getElementById("login-form-submit");
 const errorMessage = document.getElementById("error-message");
