@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -14,8 +16,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import com.revature.models.ERSUser;
 import com.revature.models.Reimbursement;
 import com.revature.models.Reimbursement.ReimburseStatus;
+import com.revature.services.ERSUserService;
 import com.revature.services.ReimbursementService;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -23,6 +27,7 @@ import com.revature.services.ReimbursementService;
 public class ReimbursementServiceTesting
 {
 	ReimbursementService service = new ReimbursementService();
+	ERSUserService userService = new ERSUserService();
 	
 	Reimbursement testReimbursement;
 	
@@ -100,6 +105,24 @@ public class ReimbursementServiceTesting
 		  assertEquals(service.getReimbursementsByStatus(ReimburseStatus.Approved).size(), reimbursementCount + 1);
 		  service.deleteReimbursement(testReimbursement.getID());
 		  assertEquals(service.getReimbursementsByStatus(ReimburseStatus.Approved).size(), reimbursementCount); 
+	  }
+	  
+	  @Test
+	  @Order(8)
+	  public void getAllReimbursementsFromUserTest()
+	  {
+		  ERSUser testUser = userService.getUser("etubig");
+		  List<Reimbursement> userReims = service.getAllReimbursementsFromUser(testUser.getID());
+		  assertNotNull(userReims);
+	  }
+	 
+	  @Test
+	  @Order(9)
+	  public void getAllReimbursementsFromUserByStatusTest()
+	  {
+		  ERSUser testUser = userService.getUser("etubig");
+		  List<Reimbursement> userReims = service.getUserReimbursementsByStatus(ReimburseStatus.Approved, testUser.getID());
+		  assertNotNull(userReims);
 	  }
 	 
 	

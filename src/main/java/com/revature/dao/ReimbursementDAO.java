@@ -14,4 +14,5 @@ public interface ReimbursementDAO {
 	public boolean insert(Reimbursement reimbursement);
 	public boolean update(Reimbursement reimbursement);
 	public boolean delete(Reimbursement reimbursement);
+	public List<Reimbursement> getReimbursementsFromUserByStatus(ReimburseStatus stat, int userID);
 }

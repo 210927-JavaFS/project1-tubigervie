@@ -8,6 +8,8 @@ import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.revature.models.ERSUser;
 import com.revature.utils.CollectionUtil;
@@ -15,6 +17,7 @@ import com.revature.utils.HibernateUtil;
 
 public class ERSUserDAOImpl implements ERSUserDAO
 {
+	private static Logger log = LoggerFactory.getLogger(ERSUserDAOImpl.class);
 
 	@Override
 	public List<ERSUser> getAllUsers() {
@@ -35,6 +38,7 @@ public class ERSUserDAOImpl implements ERSUserDAO
 		}
 		catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}
@@ -49,7 +53,7 @@ public class ERSUserDAOImpl implements ERSUserDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}	
 	}
@@ -64,7 +68,7 @@ public class ERSUserDAOImpl implements ERSUserDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}	
 	}
@@ -79,7 +83,7 @@ public class ERSUserDAOImpl implements ERSUserDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}
 	}
@@ -93,11 +97,12 @@ public class ERSUserDAOImpl implements ERSUserDAO
 			return (ERSUser) query.getSingleResult();
 		}catch(HibernateException e)
 		{
-			e.printStackTrace();
+			log.error(e.toString());
 			return null;
 		}
 		catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}

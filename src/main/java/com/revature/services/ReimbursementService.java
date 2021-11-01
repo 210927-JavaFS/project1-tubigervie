@@ -52,4 +52,8 @@ public class ReimbursementService {
 		if(reimbursement == null) return false;
 		return reimburseDAO.delete(reimbursement);
 	}
+
+	public List<Reimbursement> getUserReimbursementsByStatus(ReimburseStatus status, int userID) {
+		return reimburseDAO.getReimbursementsFromUserByStatus(status, userID);
+	}
 }

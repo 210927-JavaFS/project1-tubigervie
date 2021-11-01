@@ -8,6 +8,8 @@ import javax.persistence.Query;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.revature.models.Reimbursement;
 import com.revature.models.Reimbursement.ReimburseStatus;
@@ -16,6 +18,7 @@ import com.revature.utils.HibernateUtil;
 
 public class ReimbursementDAOImpl implements ReimbursementDAO
 {
+	private static Logger log = LoggerFactory.getLogger(ReimbursementDAOImpl.class);
 
 	@Override
 	public List<Reimbursement> getAllReimbursements() {
@@ -26,6 +29,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 		}
 		catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}
@@ -41,6 +45,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 		}
 		catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}
@@ -52,6 +57,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			return session.get(Reimbursement.class, id);
 		}catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}
@@ -66,7 +72,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}
 	}
@@ -81,7 +87,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}
 	}
@@ -96,7 +102,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			HibernateUtil.closeSession();
 			return true;
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}
 	}
@@ -111,6 +117,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 			return reimbursements;
 		}catch(NoResultException e)
 		{
+			log.error(e.toString());
 			return null;
 		}
 	}
@@ -126,6 +133,24 @@ public class ReimbursementDAOImpl implements ReimbursementDAO
 		}
 		catch(NoResultException e)
 		{
+			log.error(e.toString());
+			return null;
+		}
+	}
+
+	@Override
+	public List<Reimbursement> getReimbursementsFromUserByStatus(ReimburseStatus stat, int userID) {
+		try {
+			Session session = HibernateUtil.getSession();
+			Query query = session.createQuery("FROM Reimbursement WHERE author_id = :author AND status = :status");
+			query.setParameter("author", userID);
+			query.setParameter("status", stat);
+			List<Reimbursement> reimbursements = CollectionUtil.castList(Reimbursement.class, query.getResultList());
+			return reimbursements;
+		}
+		catch(NoResultException e)
+		{
+			log.error(e.toString());
 			return null;
 		}
 	}

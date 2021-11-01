@@ -24,7 +24,7 @@ async function getNewReimbursement(){
   {
     errorMessage.innerText = "Reimbursement amount cannot be left blank.";
     errorMessage.hidden = false;
-    return;
+    return null;
   }
 
   let reimburseType = document.getElementById("reimburse-type").value;
@@ -64,7 +64,7 @@ async function getUser(id)
 
 async function addReimbursement(){
   let reimbursement = await getNewReimbursement();
-
+  if(!reimbursement) return;
   let response = await fetch(URL+"reimbursements", {
     method:'POST',
     body:JSON.stringify(reimbursement)

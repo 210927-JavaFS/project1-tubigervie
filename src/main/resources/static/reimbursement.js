@@ -54,6 +54,27 @@ async function getReimbursementsFromUser()
   populateReimbursementsTable(data, false, false);
 }
 
+async function getPendingReimbursementsFromUser()
+{
+  let user = sessionStorage.getItem("currentLoginName");
+  let data = await getReimbursementsByFilterString("/statuses/Pending/"+user);
+  populateReimbursementsTable(data, false, false);
+}
+
+async function getApprovedReimbursementsFromUser()
+{
+  let user = sessionStorage.getItem("currentLoginName");
+  let data = await getReimbursementsByFilterString("/statuses/Approved/"+user);
+  populateReimbursementsTable(data, false, false);
+}
+
+async function getDeniedReimbursementsFromUser()
+{
+  let user = sessionStorage.getItem("currentLoginName");
+  let data = await getReimbursementsByFilterString("/statuses/Denied/"+user);
+  populateReimbursementsTable(data, false, false);
+}
+
 function getRequestsByFilter()
 {
   let select = document.getElementById("filterBy");
@@ -67,6 +88,26 @@ function getRequestsByFilter()
       break;
     case "3":
       getDeniedRequests();
+      break;
+  }
+}
+
+function getUserRequestsByFilter()
+{
+  let select = document.getElementById("filterBy");
+  switch(select.value)
+  {
+    case "1":
+      getReimbursementsFromUser();
+      break;
+    case "2":
+      getPendingReimbursementsFromUser();
+      break;
+    case "3":
+      getApprovedReimbursementsFromUser();
+      break;
+    case "4":
+      getDeniedReimbursementsFromUser();
       break;
   }
 }
