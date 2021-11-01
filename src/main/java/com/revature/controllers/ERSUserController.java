@@ -26,7 +26,8 @@ public class ERSUserController implements Controller
 		if(loginService.login(userDTO))
 		{
 			ERSUser user = userService.getUser(userDTO.username);
-			ctx.req.getSession();
+			System.out.println("should validate session");
+			ctx.req.getSession(true);
 			ctx.sessionAttribute("userid", user.getID());
 			ctx.json(user);
 			ctx.status(200);                                                                  
