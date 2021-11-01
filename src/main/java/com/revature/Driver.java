@@ -16,7 +16,7 @@ public class Driver
 		app = Javalin.create((config)->{
 			config.addStaticFiles("/static", Location.CLASSPATH);
 		});
-		
+		app.before(ctx->ctx.header("Access-Control-Allow-Origin", "http://54.193.215.129:8081"));
 		app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
 		configure(new ReimbursementController(), new ERSUserController());
 		
