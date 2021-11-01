@@ -1386,3 +1386,35 @@ Caused by: org.postgresql.util.PSQLException: ERROR: operator does not exist: ch
 04:23:36.502 [] [main] INFO  io.javalin.Javalin - Starting Javalin ...
 04:23:36.692 [] [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
 04:23:36.692 [] [main] INFO  io.javalin.Javalin - Javalin started in 191ms \o/
+12:08:57.616 [] [main] INFO  org.eclipse.jetty.util.log - Logging initialized @434ms to org.eclipse.jetty.util.log.Slf4jLog
+12:08:57.665 [] [main] INFO  io.javalin.Javalin - Static file handler added:
+    {urlPathPrefix: "/", path: "/static", location: Location.CLASSPATH}
+    Resolved path: 'file:///C:/Users/ervie/Documents/Work%20Stuff/sts-4.8.1.RELEASE/workspace/Repos/project1-tubigervie/target/classes/static/'
+12:08:57.715 [] [main] INFO  io.javalin.Javalin - 
+           __                      __ _
+          / /____ _ _   __ ____ _ / /(_)____
+     __  / // __ `/| | / // __ `// // // __ \
+    / /_/ // /_/ / | |/ // /_/ // // // / / /
+    \____/ \__,_/  |___/ \__,_//_//_//_/ /_/
+
+        https://javalin.io/documentation
+
+12:08:57.716 [] [main] INFO  io.javalin.Javalin - Starting Javalin ...
+12:08:57.890 [] [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+12:08:57.890 [] [main] INFO  io.javalin.Javalin - Javalin started in 175ms \o/
+12:09:41.725 [] [main] INFO  org.eclipse.jetty.util.log - Logging initialized @389ms to org.eclipse.jetty.util.log.Slf4jLog
+12:09:41.774 [] [main] INFO  io.javalin.Javalin - Static file handler added:
+    {urlPathPrefix: "/", path: "/static", location: Location.CLASSPATH}
+    Resolved path: 'file:///C:/Users/ervie/Documents/Work%20Stuff/sts-4.8.1.RELEASE/workspace/Repos/project1-tubigervie/target/classes/static/'
+12:09:41.825 [] [main] INFO  io.javalin.Javalin - 
+           __                      __ _
+          / /____ _ _   __ ____ _ / /(_)____
+     __  / // __ `/| | / // __ `// // // __ \
+    / /_/ // /_/ / | |/ // /_/ // // // / / /
+    \____/ \__,_/  |___/ \__,_//_//_//_/ /_/
+
+        https://javalin.io/documentation
+
+12:09:41.826 [] [main] INFO  io.javalin.Javalin - Starting Javalin ...
+12:09:42.000 [] [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
+12:09:42.000 [] [main] INFO  io.javalin.Javalin - Javalin started in 175ms \o/
