@@ -1418,3 +1418,14 @@ Caused by: org.postgresql.util.PSQLException: ERROR: operator does not exist: ch
 12:09:41.826 [] [main] INFO  io.javalin.Javalin - Starting Javalin ...
 12:09:42.000 [] [main] INFO  io.javalin.Javalin - Listening on http://localhost:8081/
 12:09:42.000 [] [main] INFO  io.javalin.Javalin - Javalin started in 175ms \o/
+07:14:17.356 [] [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.0.Final
+07:14:18.052 [] [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+07:14:18.257 [] [main] WARN  o.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+07:14:18.268 [] [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://training-instance.capduaavzmdr.us-west-1.rds.amazonaws.com:5432/ers_system]
+07:14:18.268 [] [main] INFO  o.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+07:14:18.268 [] [main] INFO  o.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+07:14:18.272 [] [main] INFO  o.h.e.j.c.i.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+07:14:18.844 [] [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+07:14:19.713 [] [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@a642c54] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+07:14:19.976 [] [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+07:14:22.482 [] [main] ERROR com.revature.dao.ERSUserDAOImpl - javax.persistence.NoResultException: No entity found for query
