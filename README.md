@@ -1,33 +1,47 @@
 # Employee Reimbursement System (ERS)
 
-## Executive Summary
+## Project Description
+
 The Expense Reimbursement System (ERS) will manage the process of reimbursing employees for expenses incurred while on company time. All employees in the company can login and submit requests for reimbursement and view their past tickets and pending requests. Finance managers can log in and view all reimbursement requests and past history for all employees in the company. Finance managers are authorized to approve and deny requests for expense reimbursement.
 
-**State-chart Diagram (Reimbursement Statuses)** 
-![](./imgs/state-chart.jpg)
+## Technologies Used
 
-**Reimbursement Types**
+* Hibernate
+* Javalin
+* HTML/JavaScript/CSS
+* Logback
+* JUnit
 
-Employees must select the type of reimbursement as: LODGING, TRAVEL, FOOD, or OTHER.
+## Features
 
-**Logical Model**
-![](./imgs/logical.jpg)
+List of features ready and TODOs for future development
+* Multi-tier account logins
+* View/Create reimbursement tickets as an Employee user
+* View all and approve/deny tickets as a Finance Manager user
 
-**Physical Model**
-![](./imgs/physical.jpg)
+To-do list:
+* Uploading image files to the database that can be retrieved and displayed on client view
+* Static file hosting on AWS S3 bucket
 
-**Use Case Diagram**
-![](./imgs/use-case.jpg)
+## Getting Started
+   
+(include git clone command)
+(include all environment setup steps)
 
-**Activity Diagram**
-![](./imgs/activity.jpg)
+> Be sure to include BOTH Windows and Unix command  
+> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
 
-## Technical Requirements
+- All the `code` required to get started
+- Images of what it should look like
 
-The back-end system shall use Hibernate to connect to an AWS RDS Postgres database. The middle tier shall use Javalin technology for dynamic Web application development. The front-end view shall use HTML/JavaScript to make an application that can call server-side components RESTfully. Passwords shall be encrypted in Java and securely stored in the database. The middle tier shall follow proper layered architecture, have reasonable (~70%) test coverage of the service layer, and implement Logback for appropriate logging. 
+## Usage
 
-**Stretch Goals:**
-* Replace HTML/JavaScript with an Angular single page application.
-* Users can upload a document or image of their receipt when submitting reimbursements which can stored in the database and reviewed by a financial manager.
-* Application shall be hosted remotely on an EC2.
-* Static files (webpages) shall be hosted on an S3 bucket. 
+> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
+
+## Contributors
+
+> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
+
+## License
+
+This project uses the following license: [<license_name>](<link>).
