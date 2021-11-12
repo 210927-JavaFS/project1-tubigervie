@@ -6,11 +6,15 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 
 ## Technologies Used
 
+* Java
 * Hibernate
 * Javalin
 * HTML/JavaScript/CSS
 * Logback
 * JUnit
+* AWS RDS
+* AWS EC2
+* DBeaver
 
 ## Features
 
@@ -22,26 +26,18 @@ List of features ready and TODOs for future development
 To-do list:
 * Uploading image files to the database that can be retrieved and displayed on client view
 * Static file hosting on AWS S3 bucket
+* Account registration so account population does not have to occur in DBeaver
 
 ## Getting Started
    
-(include git clone command)
-(include all environment setup steps)
 
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
+* Clone project onto local machine using git clone https://github.com/210927-JavaFS/project1-tubigervie.git
+* Configure connection in the hibernate.cfg.xml file within src to match your local RDS
+* Run Driver.java class as Java application
+* Navigate to the url: http:localhost:8081/login.html
 
-- All the `code` required to get started
-- Images of what it should look like
 
 ## Usage
-
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-
-## Contributors
-
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-
-## License
-
-This project uses the following license: [<license_name>](<link>).
+* Create users and employees to use in your RDS using DBeaver
+* Login at the specified URL above to access employee and manager features
+* Use application to create/review reimbursement requests
